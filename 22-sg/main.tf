@@ -183,3 +183,13 @@ resource "aws_security_group_rule" "backend_app_alb" {
   source_security_group_id = module.app_alb_sg.id
   security_group_id = module.backend_sg.id
 }
+
+resource "aws_security_group_rule" "app_alb_bastion" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  #cidr or direct source also we can use
+  source_security_group_id = module.bastion_sg.id
+  security_group_id = module.app_alb_sg.id
+}
